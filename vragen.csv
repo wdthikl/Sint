@@ -1,0 +1,25 @@
+vraagtekst,antwoord_A,antwoord_B,antwoord_C,antwoord_D,juist_antwoord,type,moeilijkheid
+"Wanneer vieren we Sinterklaas in Nederland?","5 december","3 oktober","25 december","2 januari","A",multiple,Makkelijk
+"Wat is het paard van Sint genaamd?","Amerigo","Ozosnel","Rayhond","Thunderstorm","B",multiple,Makkelijk
+"Met welke naam schrijft Sint zich in?","Sint Nicolaas","Kerstman","Nieuwjaarskabouter","Tovenaarbol","A",multiple,Makkelijk
+"Waar komen de cadeaus van Sint vandaan?","Uit zijn zak","Van het dak","Uit de schoorsteen","Van het paard","A",multiple,Makkelijk
+"Wat doen kinderen op Sinterklaasavond?","Ze zetten hun schoenen neer","Ze zingen liedjes","Ze eten snoep","Ze gaan slapen","A",multiple,Makkelijk
+"Hoeveel pieten heeft Sint (ongeveer)?","Honderden","Drie","Geen","Twintig","A",multiple,Makkelijk
+"Is Sint Nicolaas echt een historisch figuur?","Waar","Onwaar",,,,"tf",Makkelijk
+"Komen de cadeautjes echt van Sint?","Waar","Onwaar",,,,"tf",Makkelijk
+"In welk land werd Sint Nicolaas geboren?","Turkije","Nederland","België","Spanje","A",multiple,Normaal
+"Wat is de Spaanse naam voor Sint Nicolaas?","San Nicolás","El Regalo","Papá Noel","Don Santillana","A",multiple,Normaal
+"Wie heeft Sint Nicolaas uitgevonden als feest?","Amerikanen","Nederlanders","Belgen","Fransen","B",multiple,Normaal
+"In welke stad was Sint Nicolaas bisschop?","Myra","Milete","Athene","Rome","A",multiple,Normaal
+"Hoe heet het meisje dat doorgewoonlijk als Griet of Greetha auftritt?","Pietenmeisje","Piet Snot","Sintpiet","Pietje","B",multiple,Normaal
+"Welk kind van Sint/Niklaas is een traditionele partner?","Zwarte Piet","Rode Piet","Groene Piet","Blauwe Piet","A",multiple,Normaal
+"Op welke dag zeggen we gedichten op voor cadeaus?","Sinterklaasavond","Kerstmis","Oudjaar","Driekoningen","A",multiple,Normaal
+"Is Sint Nicolaas gelijk aan Kerstman?","Onwaar","Waar",,,,"tf",Normaal
+"Wat is het huisje van Sint?","Een kasteel in Spanje","Een hut in Nederland","Een palazzo in Italië","Een huisje op het dak","A",multiple,Moeilijk
+"Wat was de oorspronkelijke nationaliteit van Sint Nicolaas?","Byzantijns/Turks","Nederlands","Spaans","Italiaans","A",multiple,Moeilijk
+"In welk jaar ontstond het Sinterklaasfeest in Nederland ongeveer?","15e-16e eeuw","10e eeuw","13e eeuw","20e eeuw","A",multiple,Moeilijk
+"Welke taal sprak Sint Nicolaas waarschijnlijk?","Grieks/Aramees","Nederlands","Latijn","Spaans","A",multiple,Moeilijk
+"Hoeveel pieten zijn er in het officiële Sint-Nicolaas-verhaal?","Variabel/veel","Exact drie","Geen","Zeven","A",multiple,Moeilijk
+"Wat is de etymologie van het woord 'piet'?","Afgeleid van 'Petrus'","Afgeleid van 'Pierino'","Afgeleid van 'Pepijn'","Afgeleid van 'Ptolemeus'","A",multiple,Moeilijk
+"Wie vertelden het Sinterklaas-verhaal buiten Nederland bekend?","Nederlandse emigranten","Zeelieden","Missionarissen","Marktkramers","A",multiple,Moeilijk
+"Dat Sint Nicolaas een echte historische figuur was, staat vast.","Waar","Onwaar",,,,"tf",Moeilijk
