@@ -18,6 +18,8 @@ surprise_console/
 ├── tts.py               # TTS-abstractie (espeak-ng)
 ├── quiz.py              # Quiz-engine, vraagverwerking, scoring
 ├── minigames.py         # Minigames (roulette, opdrachten, soundboard)
+├── gifts.py             # Cadeau-systeem
+├── maintenance.py       # Onderhoudsmenu (CRUD voor vragen)
 ├── vragen.csv           # Vraagenbank (CSV-format)
 └── README.md            # Dit bestand
 ```
@@ -84,9 +86,9 @@ Wijzig `config.py` voor:
 
 ## 📊 Vragen Toevoegen
 
-Voeg vragen toe aan `vragen.csv`:
+Voeg vragen toe aan `vragen.csv` **of** gebruik het **Onderhoudsmenu**!
 
-### CSV Format
+### Optie 1: CSV-bestand aanpassen
 
 ```csv
 vraagtekst,antwoord_A,antwoord_B,antwoord_C,antwoord_D,juist_antwoord,type,moeilijkheid
@@ -106,6 +108,43 @@ vraagtekst,antwoord_A,antwoord_B,antwoord_C,antwoord_D,juist_antwoord,type,moeil
 "Wanneer vieren we Sinterklaas?","5 december","3 oktober","25 december","1 januari","A",multiple,Makkelijk
 "Is Sint Nicolaas een echte historische figuur?","Waar","Onwaar",,,,"tf",Normaal
 ```
+
+### Optie 2: Onderhoudsmenu (CRUD)
+
+**Veel gemakkelijker!** Beheer vragen direct in het spel zonder CSV-bewerking.
+
+#### Toegang
+- Druk **`Ctrl+M`** op het hoofdmenu
+- Of kies in het menu
+
+#### Functies
+
+**1. ➕ Nieuwe vraag toevoegen**
+- Kies vraagtype (meerkeuze of waar/onwaar)
+- Selecteer moeilijkheidsniveau
+- Voer vraagtekst in
+- Voer antwoorden in
+- Selecteer juiste antwoord
+- ✅ Automatisch naar CSV opgeslagen!
+
+**2. 📋 Alle vragen tonen**
+- Sorteerd per moeilijkheidsniveau
+- Toon eerste 50 karakters van vraag
+
+**3. ✏️ Vraag wijzigen**
+- Selecteer vraag
+- Wijzig: vraagtekst, antwoorden, juiste antwoord, moeilijkheid
+- ✅ Automatisch opgeslagen
+
+**4. 🗑️ Vraag verwijderen**
+- Selecteer vraag
+- Bevestiging voordat verwijderd
+- ✅ Automatisch opgeslagen
+
+#### CSV Auto-save
+- ✅ Elke wijziging direct naar `vragen.csv`
+- ✅ Geen handmatige export
+- ✅ Veilig in git (backup)
 
 ## 🔊 TTS Installatie (Linux)
 
@@ -140,6 +179,7 @@ fi
 - Minigames-menu
 - Instellingen
 - TTS-test
+- **Ctrl+M hotkey voor onderhoudsmenu**
 
 ### `ui.py`
 - `print_title()`, `print_success()`, `print_error()`, etc.
@@ -169,6 +209,15 @@ fi
 - `get_questions_by_difficulty()` - Filter vragen
 - `run_quiz()` - Quiz-loop
 - `show_final_score()` - Eindresultaat
+
+### `maintenance.py` ✨ NIEUW!
+- `QuestionManager` class - CRUD operaties
+- `add_question()` - Voeg vraag toe (interactief)
+- `list_questions()` - Toon alle vragen
+- `edit_question()` - Wijzig vraag
+- `delete_question()` - Verwijder vraag
+- `show_maintenance_menu()` - Toegankelijk via Ctrl+M
+- **Auto-save naar CSV na elke wijziging**
 
 ### `minigames.py`
 - `play_roulette()` - 3 willekeurige vragen

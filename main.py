@@ -1,300 +1,597 @@
-""""""# GitHub Copilot – PROJECT CONTEXT (LEZEN VOORDAT JE CODE SCHRIJFT)
+"""""""""# GitHub Copilot – PROJECT CONTEXT (LEZEN VOORDAT JE CODE SCHRIJFT)
 
 main.py - Entry point van de Surprise Sinterklaas Console Game
 
-main.py - Entry point van de Surprise Sinterklaas Console Game#
+main.py - Entry point van de Surprise Sinterklaas Console Game
 
 Dit is de hoofd-event-loop met:
 
-- Hoofdmenu# Ik wil een terminal-only Sinterklaas / surprise “console game” bouwen in Python.
+- Hoofdmenumain.py - Entry point van de Surprise Sinterklaas Console Game#
 
 - Quiz starten
 
-- MinigamesDit is de hoofd-event-loop met:# De game draait NIET op Windows, maar op een aparte LMDE (Linux Mint Debian Edition) machine:
+- MinigamesDit is de hoofd-event-loop met:
 
 - Instellingen
 
-- TTS test- Hoofdmenu#
+- TTS test- Hoofdmenu# Ik wil een terminal-only Sinterklaas / surprise “console game” bouwen in Python.
 
 - Cadeaus info
 
-"""- Quiz starten#   - Hardware: oude MacBook (Intel), waarop LMDE staat
+- Ctrl+M hotkey voor maintenance menu- Quiz starten
 
+"""
 
+- MinigamesDit is de hoofd-event-loop met:# De game draait NIET op Windows, maar op een aparte LMDE (Linux Mint Debian Edition) machine:
 
-import sys- Minigames#   - De LMDE-machine boot ZONDER GUI, direct in een TTY (pure terminal, multi-user.target)
+import sys
 
-import ui
+import ui- Instellingen
 
-import tts- Instellingen#   - Autologin op tty1 is ingesteld met systemd/getty
+import tts
 
-import gifts
+import gifts- TTS test- Hoofdmenu#
 
-from config import (- TTS test#   - Na autologin moet uiteindelijk automatisch mijn Python-game starten
+from config import (
 
-    DIFFICULTY_LEVELS,
+    DIFFICULTY_LEVELS,- Cadeaus info
 
-    DEFAULT_NUM_QUESTIONS,"""#
+    DEFAULT_NUM_QUESTIONS,
 
-)
+)"""- Quiz starten#   - Hardware: oude MacBook (Intel), waarop LMDE staat
 
-from quiz import run_quiz_game# Belangrijk:
+from quiz import run_quiz_game
 
 from minigames import show_minigames_menu
 
-import sys# - Ik ontwikkel de code op Windows 11 in VS Code met GitHub Copilot.
+from maintenance import show_maintenance_menu
+
+import sys- Minigames#   - De LMDE-machine boot ZONDER GUI, direct in een TTY (pure terminal, multi-user.target)
 
 
 
-def show_main_menu():import ui# - Ik TEST de code NIET op Windows; runtime is Linux (LMDE).
+def show_main_menu():import ui
 
     """Toon en verwerk hoofdmenu."""
 
-    while True:import tts# - Uitrol naar de LMDE-machine gebeurt bijvoorbeeld via Pastebin, scp of git.
+    while True:import tts- Instellingen#   - Autologin op tty1 is ingesteld met systemd/getty
 
         ui.clear_screen()
 
-        ui.print_banner()from config import (#
+        ui.print_banner()import gifts
 
         print()
 
-            DIFFICULTY_LEVELS,# DOEL VAN HET PROJECT
+        from config import (- TTS test#   - Na autologin moet uiteindelijk automatisch mijn Python-game starten
 
         options = [
 
-            "Quiz starten",    DEFAULT_DIFFICULTY,# ---------------------
+            "Quiz starten",    DIFFICULTY_LEVELS,
 
             "Minigames",
 
-            "Cadeaus info",    DEFAULT_NUM_QUESTIONS,# Een interactieve Sinterklaas/surprise-console in de terminal, met:
+            "Cadeaus info",    DEFAULT_NUM_QUESTIONS,"""#
 
             "Instellingen",
 
-            "Test geluid/stem",)# - ASCII-art (banners, kaders, simpele “animaties”)
+            "Test geluid/stem",)
 
             "Afsluiten",
 
-        ]from quiz import run_quiz_game# - Kleur in de terminal via ANSI escape codes (bijvoorbeeld \033[1;31m voor rood)
+        ]from quiz import run_quiz_game# Belangrijk:
 
         
 
-        ui.print_menu("HOOFDMENU", options)from minigames import show_minigames_menu# - Een of meerdere spelvormen, o.a.:
+        ui.print_menu("HOOFDMENU", options)from minigames import show_minigames_menu
+
+        print("\n💡 Tip: Druk Ctrl+M voor onderhoudsmenu (vragen beheren)")
+
+        print()import sys# - Ik ontwikkel de code op Windows 11 in VS Code met GitHub Copilot.
 
         
-
-        try:#   - Quiz (meerkeuzevragen, A/B/C/D)
-
-            choice = input("Jouw keuze (1-6): ").strip()
-
-            #   - Mogelijk minigames (roulette / opdrachten / soundboard) – later
-
-            if choice == "1":
-
-                quiz_menu()def show_main_menu():# - Geluid/Text-to-Speech in het NEDERLANDS op de LMDE-machine
-
-            elif choice == "2":
-
-                show_minigames_menu()    """Toon en verwerk hoofdmenu."""#
-
-            elif choice == "3":
-
-                gifts.show_gift_info()    while True:# TTS / GELUID:
-
-            elif choice == "4":
-
-                settings_menu()        ui.clear_screen()# - Op de LMDE-machine zullen we gebruikmaken van espeak-ng en/of mbrola met Nederlandse stemmen.
-
-            elif choice == "5":
-
-                test_audio()        ui.print_banner()#   Voorbeelden die uiteindelijk moeten werken in Linux:
-
-            elif choice == "6":
-
-                say_goodbye()        print()#     espeak-ng -v nl "Dit is een test"
-
-                break
-
-            else:        #     espeak-ng -v mb-nl2 "Dit is een Nederlandse MBROLA-stem"
-
-                ui.print_warning("Ongeldige keuze! Kies 1-6.")
-
-        except KeyboardInterrupt:        options = [# - In de Python-code mag je uitgaan van het aanroepen van deze tools via subprocess.
-
-            say_goodbye()
-
-            break            "Quiz starten",# - Op Windows test ik TTS NIET; ik test alleen de logica (geen geluid).
-
-
-
-            "Minigames",#
-
-def quiz_menu():
-
-    """Quiz-selectiemenu."""            "Instellingen",# FUNCTIONELE EISEN (HOOG NIVEAU)
-
-    ui.clear_screen()
-
-    ui.print_title("QUIZ")            "Test geluid/stem",# --------------------------------
-
-    
-
-    print("Kies je moeilijkheidsniveau:\n")            "Afsluiten",# 1) Terminal-UI:
-
-    
-
-    for i, level in enumerate(DIFFICULTY_LEVELS, 1):        ]#    - Volledig tekst/ASCII, geen GUI.
-
-        print(f"  {i}. {level}")
-
-            #    - Gebruik ANSI-kleuren voor titels, waarschuwingen, succes, etc.
-
-    print("\n  0. Teruggaan")
-
-            ui.print_menu("HOOFDMENU", options)#    - Een hoofdmenu met opties zoals:
-
-    try:
-
-        choice = input("\nKeuze: ").strip()        #        1. Start quiz
-
-        
-
-        if choice == "0":        try:#        2. Instellingen (bijv. moeilijkheid, aantal vragen)
-
-            return
-
-        elif choice in ["1", "2", "3"]:            choice = input("Jouw keuze (1-5): ").strip()#        3. Test geluid / stem
-
-            idx = int(choice) - 1
-
-            difficulty = DIFFICULTY_LEVELS[idx]            #        4. Afsluiten
-
-            
-
-            # Vraag aantal vragen            if choice == "1":#
-
-            ui.clear_screen()
-
-            ui.print_title(f"Quiz - {difficulty}")                quiz_menu()# 2) Quiz-engine (eerste spel dat we bouwen):
-
-            
-
-            print(f"Hoeveel vragen wil je beantwoorden?")            elif choice == "2":#    - Vragenstructuur met:
-
-            print(f"(standaard: {DEFAULT_NUM_QUESTIONS})\n")
-
-                            show_minigames_menu()#        - vraagtekst (Nederlands)
-
-            try:
-
-                num = input("Aantal vragen (Enter voor standaard): ").strip()            elif choice == "3":#        - 4 opties (A/B/C/D)
-
-                if num:
-
-                    num_questions = int(num)                settings_menu()#        - juiste antwoord
-
-                    if num_questions < 1:
-
-                        num_questions = DEFAULT_NUM_QUESTIONS            elif choice == "4":#    - Scoring (bijv. aantal goede antwoorden, eventueel strafpunten).
-
-                else:
-
-                    num_questions = DEFAULT_NUM_QUESTIONS                test_audio()#    - Simpele loop: vraag tonen -> invoer (A/B/C/D) -> feedback -> volgende vraag.
-
-            except ValueError:
-
-                num_questions = DEFAULT_NUM_QUESTIONS            elif choice == "5":#    - Feedback tonen in kleur (groen = goed, rood = fout).
-
-            
-
-            # Start quiz                say_goodbye()#    - Optioneel TTS: vraag en/of feedback laten uitspreken (alleen in Linux runtime).
-
-            run_quiz_game(difficulty, num_questions)
-
-        else:                break#
-
-            ui.print_warning("Ongeldige keuze!")
-
-    except KeyboardInterrupt:            else:# 3) Architectuur:
-
-        ui.print_warning("\nTerug naar menu...")
-
-                ui.print_warning("Ongeldige keuze! Kies 1-5.")#    - Graag een modulaire opzet:
-
-
-
-def settings_menu():        except KeyboardInterrupt:#      - bijv. modules zoals:
-
-    """Instellingen-menu."""
-
-    while True:            say_goodbye()#        - game_main.py of main.py (entry point)
-
-        ui.clear_screen()
-
-        ui.print_title("INSTELLINGEN")            break#        - ui.py (kleurfuncties, ASCII helpers)
-
-        
-
-        tts_status = "AAN" if tts.TTS_ENABLED else "UIT"#        - quiz.py (quizlogica en vraagstructuren)
-
-        
-
-        options = [#        - tts.py (abstractie rond espeak-ng/mbrola)
-
-            f"TTS (Tekst-naar-spraak): {tts_status}",
-
-            "TTS testen",def quiz_menu():#        - config.py (instellingen zoals aantal vragen, TTS aan/uit)
-
-            "Over dit spel",
-
-            "Teruggaan",    """Quiz-selectiemenu."""#    - De code moet leesbaar en uitbreidbaar zijn.
-
-        ]
-
-            ui.clear_screen()#
-
-        ui.print_menu("INSTELLINGEN", options)
-
-            ui.print_title("QUIZ")# 4) Uitvoer/gebruik:
 
         try:
 
-            choice = input("Jouw keuze (1-4): ").strip()    #    - De game draait in een oneindige loop tot de gebruiker kiest om af te sluiten.
+            # Controleer voor Ctrl+M
+
+            choice = input("Jouw keuze (1-6): ").strip()def show_main_menu():import ui# - Ik TEST de code NIET op Windows; runtime is Linux (LMDE).
 
             
 
-            if choice == "1":    print("Kies je moeilijkheidsniveau:\n")#    - In de terminal kan de gebruiker met het toetsenbord keuzes maken (bijv. 1/2/3 in het menu, A/B/C/D bij quiz).
+            if choice == "1":    """Toon en verwerk hoofdmenu."""
 
-                toggle_tts()
+                quiz_menu()
 
-            elif choice == "2":    #
+            elif choice == "2":    while True:import tts# - Uitrol naar de LMDE-machine gebeurt bijvoorbeeld via Pastebin, scp of git.
+
+                show_minigames_menu()
+
+            elif choice == "3":        ui.clear_screen()
+
+                gifts.show_gift_info()
+
+            elif choice == "4":        ui.print_banner()from config import (#
+
+                settings_menu()
+
+            elif choice == "5":        print()
 
                 test_audio()
 
-            elif choice == "3":    for i, level in enumerate(DIFFICULTY_LEVELS, 1):# 5) Autostart op LMDE (context, NIET om nu te implementeren):
+            elif choice == "6":            DIFFICULTY_LEVELS,# DOEL VAN HET PROJECT
+
+                say_goodbye()
+
+                break        options = [
+
+            else:
+
+                ui.print_warning("Ongeldige keuze! Kies 1-6.")            "Quiz starten",    DEFAULT_DIFFICULTY,# ---------------------
+
+        except KeyboardInterrupt:
+
+            # Detecteer Ctrl+C en vraag wat ze willen            "Minigames",
+
+            print("\n")
+
+            response = input("Druk Ctrl+M voor onderhoudsmenu, of Ctrl+C opnieuw om af te sluiten: ").strip()            "Cadeaus info",    DEFAULT_NUM_QUESTIONS,# Een interactieve Sinterklaas/surprise-console in de terminal, met:
+
+            if response.upper() == "M":
+
+                show_maintenance_menu()            "Instellingen",
+
+
+
+            "Test geluid/stem",)# - ASCII-art (banners, kaders, simpele “animaties”)
+
+def quiz_menu():
+
+    """Quiz-selectiemenu."""            "Afsluiten",
+
+    ui.clear_screen()
+
+    ui.print_title("QUIZ")        ]from quiz import run_quiz_game# - Kleur in de terminal via ANSI escape codes (bijvoorbeeld \033[1;31m voor rood)
+
+    
+
+    print("Kies je moeilijkheidsniveau:\n")        
+
+    
+
+    for i, level in enumerate(DIFFICULTY_LEVELS, 1):        ui.print_menu("HOOFDMENU", options)from minigames import show_minigames_menu# - Een of meerdere spelvormen, o.a.:
+
+        print(f"  {i}. {level}")
+
+            
+
+    print("\n  0. Teruggaan")
+
+            try:#   - Quiz (meerkeuzevragen, A/B/C/D)
+
+    try:
+
+        choice = input("\nKeuze: ").strip()            choice = input("Jouw keuze (1-6): ").strip()
+
+        
+
+        if choice == "0":            #   - Mogelijk minigames (roulette / opdrachten / soundboard) – later
+
+            return
+
+        elif choice in ["1", "2", "3"]:            if choice == "1":
+
+            idx = int(choice) - 1
+
+            difficulty = DIFFICULTY_LEVELS[idx]                quiz_menu()def show_main_menu():# - Geluid/Text-to-Speech in het NEDERLANDS op de LMDE-machine
+
+            
+
+            # Vraag aantal vragen            elif choice == "2":
+
+            ui.clear_screen()
+
+            ui.print_title(f"Quiz - {difficulty}")                show_minigames_menu()    """Toon en verwerk hoofdmenu."""#
+
+            
+
+            print(f"Hoeveel vragen wil je beantwoorden?")            elif choice == "3":
+
+            print(f"(standaard: {DEFAULT_NUM_QUESTIONS})\n")
+
+                            gifts.show_gift_info()    while True:# TTS / GELUID:
+
+            try:
+
+                num = input("Aantal vragen (Enter voor standaard): ").strip()            elif choice == "4":
+
+                if num:
+
+                    num_questions = int(num)                settings_menu()        ui.clear_screen()# - Op de LMDE-machine zullen we gebruikmaken van espeak-ng en/of mbrola met Nederlandse stemmen.
+
+                    if num_questions < 1:
+
+                        num_questions = DEFAULT_NUM_QUESTIONS            elif choice == "5":
+
+                else:
+
+                    num_questions = DEFAULT_NUM_QUESTIONS                test_audio()        ui.print_banner()#   Voorbeelden die uiteindelijk moeten werken in Linux:
+
+            except ValueError:
+
+                num_questions = DEFAULT_NUM_QUESTIONS            elif choice == "6":
+
+            
+
+            # Start quiz                say_goodbye()        print()#     espeak-ng -v nl "Dit is een test"
+
+            run_quiz_game(difficulty, num_questions)
+
+        else:                break
+
+            ui.print_warning("Ongeldige keuze!")
+
+    except KeyboardInterrupt:            else:        #     espeak-ng -v mb-nl2 "Dit is een Nederlandse MBROLA-stem"
+
+        ui.print_warning("\nTerug naar menu...")
+
+                ui.print_warning("Ongeldige keuze! Kies 1-6.")
+
+
+
+def settings_menu():        except KeyboardInterrupt:        options = [# - In de Python-code mag je uitgaan van het aanroepen van deze tools via subprocess.
+
+    """Instellingen-menu."""
+
+    while True:            say_goodbye()
+
+        ui.clear_screen()
+
+        ui.print_title("INSTELLINGEN")            break            "Quiz starten",# - Op Windows test ik TTS NIET; ik test alleen de logica (geen geluid).
+
+        
+
+        tts_status = "AAN" if tts.TTS_ENABLED else "UIT"
+
+        
+
+        options = [            "Minigames",#
+
+            f"TTS (Tekst-naar-spraak): {tts_status}",
+
+            "TTS testen",def quiz_menu():
+
+            "Over dit spel",
+
+            "Teruggaan",    """Quiz-selectiemenu."""            "Instellingen",# FUNCTIONELE EISEN (HOOG NIVEAU)
+
+        ]
+
+            ui.clear_screen()
+
+        ui.print_menu("INSTELLINGEN", options)
+
+            ui.print_title("QUIZ")            "Test geluid/stem",# --------------------------------
+
+        try:
+
+            choice = input("Jouw keuze (1-4): ").strip()    
+
+            
+
+            if choice == "1":    print("Kies je moeilijkheidsniveau:\n")            "Afsluiten",# 1) Terminal-UI:
+
+                toggle_tts()
+
+            elif choice == "2":    
+
+                test_audio()
+
+            elif choice == "3":    for i, level in enumerate(DIFFICULTY_LEVELS, 1):        ]#    - Volledig tekst/ASCII, geen GUI.
 
                 show_about()
 
-            elif choice == "4":        print(f"  {i}. {level}")#    - Op de LMDE-machine zal ik in ~/.bash_profile iets doen als:
+            elif choice == "4":        print(f"  {i}. {level}")
 
                 break
 
-            else:    #         if [ "$(tty)" = "/dev/tty1" ]; then
+            else:            #    - Gebruik ANSI-kleuren voor titels, waarschuwingen, succes, etc.
 
                 ui.print_warning("Ongeldige keuze!")
 
-        except KeyboardInterrupt:    print("\n  0. Teruggaan")#             python3 ~/surprise/main.py || true
+        except KeyboardInterrupt:    print("\n  0. Teruggaan")
 
             break
 
-    #         fi
+            ui.print_menu("HOOFDMENU", options)#    - Een hoofdmenu met opties zoals:
 
 
 
-def toggle_tts():    try:#      zodat de game automatisch start na autologin.
+def toggle_tts():    try:
 
     """Toggle TTS aan/uit."""
 
-    ui.clear_screen()        choice = input("\nKeuze: ").strip()#    - Houd hier rekening mee: de code moet zich “netjes” gedragen in een pure TTY.
+    ui.clear_screen()        choice = input("\nKeuze: ").strip()        #        1. Start quiz
+
+    
+
+    if tts.TTS_ENABLED:        
+
+        ui.print_warning("TTS is momenteel AAN.")
+
+        print("\nLet op: TTS is hardcoded in config.py.")        if choice == "0":        try:#        2. Instellingen (bijv. moeilijkheid, aantal vragen)
+
+        print("Je kunt het hier niet wijzigen.")
+
+    else:            return
+
+        ui.print_info("TTS is momenteel UIT.")
+
+        print("\nOm TTS aan te zetten, wijzig config.py:")        elif choice in ["1", "2", "3"]:            choice = input("Jouw keuze (1-5): ").strip()#        3. Test geluid / stem
+
+        print("  TTS_ENABLED = True")
+
+                idx = int(choice) - 1
+
+    input("\nDruk Enter om terug te gaan...")
+
+            difficulty = DIFFICULTY_LEVELS[idx]            #        4. Afsluiten
+
+
+
+def test_audio():            
+
+    """Test TTS-functionaliteit."""
+
+    ui.clear_screen()            # Vraag aantal vragen            if choice == "1":#
+
+    ui.print_title("TTS TEST")
+
+                ui.clear_screen()
+
+    if not tts.test_tts():
+
+        ui.print_warning("TTS-test mislukt! Controleer espeak-ng op Linux.")            ui.print_title(f"Quiz - {difficulty}")                quiz_menu()# 2) Quiz-engine (eerste spel dat we bouwen):
+
+        print("\nOp Linux installeren:")
+
+        print("  sudo apt-get install espeak-ng mbrola mbrola-nl2")            
+
+    else:
+
+        ui.print_success("TTS lijkt te werken!")            print(f"Hoeveel vragen wil je beantwoorden?")            elif choice == "2":#    - Vragenstructuur met:
+
+        print("\nAls je op Linux bent en espeak-ng geïnstalleerd is,")
+
+        print("zul je een test-boodschap horen.")            print(f"(standaard: {DEFAULT_NUM_QUESTIONS})\n")
+
+    
+
+    input("\nDruk Enter om terug te gaan...")                            show_minigames_menu()#        - vraagtekst (Nederlands)
+
+
+
+            try:
+
+def show_about():
+
+    """Toon informatie over het spel."""                num = input("Aantal vragen (Enter voor standaard): ").strip()            elif choice == "3":#        - 4 opties (A/B/C/D)
+
+    ui.clear_screen()
+
+    ui.print_title("OVER DIT SPEL")                if num:
+
+    
+
+    about_text = """                    num_questions = int(num)                settings_menu()#        - juiste antwoord
+
+Surprise Sinterklaas Console
+
+Versie 2.0                    if num_questions < 1:
+
+
+
+Een interactieve terminal-spel voor Sinterklaas!                        num_questions = DEFAULT_NUM_QUESTIONS            elif choice == "4":#    - Scoring (bijv. aantal goede antwoorden, eventueel strafpunten).
+
+
+
+FEATURES:                else:
+
+- Quiz met moeilijkheidsniveaus
+
+- Meerkeuze- en waar/onwaar vragen                    num_questions = DEFAULT_NUM_QUESTIONS                test_audio()#    - Simpele loop: vraag tonen -> invoer (A/B/C/D) -> feedback -> volgende vraag.
+
+- Minigames (Roulette, Opdrachten, Soundboard)
+
+- Cadeaus verdienen met goede scores            except ValueError:
+
+- Nederlandse tekst-naar-spraak (TTS) via espeak-ng
+
+- Gedetailleerde scoring en feedback                num_questions = DEFAULT_NUM_QUESTIONS            elif choice == "5":#    - Feedback tonen in kleur (groen = goed, rood = fout).
+
+- Onderhoudsmenu voor vraagbeheer
+
+- Volledig in ASCII/ANSI-kleuren            
+
+
+
+CONTROLES:            # Start quiz                say_goodbye()#    - Optioneel TTS: vraag en/of feedback laten uitspreken (alleen in Linux runtime).
+
+- Kies opties met nummers (1, 2, 3, etc.)
+
+- Bij vragen: A, B, C, D (of J/N voor waar/onwaar)            run_quiz_game(difficulty, num_questions)
+
+- Druk 'R' om vragen te herhalen (TTS)
+
+- Ctrl+M voor onderhoudsmenu (vraagbeheer)        else:                break#
+
+- Ctrl+C om af te sluiten
+
+            ui.print_warning("Ongeldige keuze!")
+
+ONDERHOUD:
+
+- Ctrl+M: Open vraagbeheer    except KeyboardInterrupt:            else:# 3) Architectuur:
+
+- Voeg vragen toe, wijzig, verwijder
+
+- CSV automatisch opgeslagen        ui.print_warning("\nTerug naar menu...")
+
+
+
+CADEAUS:                ui.print_warning("Ongeldige keuze! Kies 1-5.")#    - Graag een modulaire opzet:
+
+- Verdien cadeaus door de quiz goed af te ronden!
+
+- Elk moeilijkheidsniveau heeft een ander cadeau
+
+- Minimum 70% om te winnen
+
+def settings_menu():        except KeyboardInterrupt:#      - bijv. modules zoals:
+
+REQUIREMENTS (Linux):
+
+- Python 3.6+    """Instellingen-menu."""
+
+- espeak-ng
+
+- mbrola-nl2 (voor Nederlandse stemmen)    while True:            say_goodbye()#        - game_main.py of main.py (entry point)
+
+
+
+CREDITS:        ui.clear_screen()
+
+Gemaakt met GitHub Copilot
+
+Sinterklaas Traditioneel™        ui.print_title("INSTELLINGEN")            break#        - ui.py (kleurfuncties, ASCII helpers)
+
+
+
+🎄 Fijne Sinterklaas! 🎄        
+
+    """
+
+            tts_status = "AAN" if tts.TTS_ENABLED else "UIT"#        - quiz.py (quizlogica en vraagstructuren)
+
+    print(about_text)
+
+    input("Druk Enter om terug te gaan...")        
+
+
+
+        options = [#        - tts.py (abstractie rond espeak-ng/mbrola)
+
+def say_goodbye():
+
+    """Zeg tot ziens."""            f"TTS (Tekst-naar-spraak): {tts_status}",
+
+    ui.clear_screen()
+
+    ui.print_banner()            "TTS testen",def quiz_menu():#        - config.py (instellingen zoals aantal vragen, TTS aan/uit)
+
+    print()
+
+                "Over dit spel",
+
+    farewell_messages = [
+
+        "Tot ziens! Veel sterkte met pakjesavond!",            "Teruggaan",    """Quiz-selectiemenu."""#    - De code moet leesbaar en uitbreidbaar zijn.
+
+        "Dag! Sint ziet je nog wel!",
+
+        "Fijne Sinterklaas! Zien we je volgende jaar!",        ]
+
+        "Bye! De pieten zwaaien!",
+
+        "Tot ziens! Veel plezier met je cadeaus!",            ui.clear_screen()#
+
+    ]
+
+            ui.print_menu("INSTELLINGEN", options)
+
+    import random
+
+    msg = random.choice(farewell_messages)            ui.print_title("QUIZ")# 4) Uitvoer/gebruik:
+
+    print(colored(msg, "GREEN"))
+
+    print()        try:
+
+    
+
+    tts.speak(msg)            choice = input("Jouw keuze (1-4): ").strip()    #    - De game draait in een oneindige loop tot de gebruiker kiest om af te sluiten.
+
+    print("\nDanku voor het spelen! 🎄\n")
+
+            
+
+
+
+def colored(text, color_name):            if choice == "1":    print("Kies je moeilijkheidsniveau:\n")#    - In de terminal kan de gebruiker met het toetsenbord keuzes maken (bijv. 1/2/3 in het menu, A/B/C/D bij quiz).
+
+    """Helper om tekst te kleuren."""
+
+    from config import COLORS                toggle_tts()
+
+    color = COLORS.get(color_name, "")
+
+    reset = COLORS["RESET"]            elif choice == "2":    #
+
+    return f"{color}{text}{reset}"
+
+                test_audio()
+
+
+
+def main():            elif choice == "3":    for i, level in enumerate(DIFFICULTY_LEVELS, 1):# 5) Autostart op LMDE (context, NIET om nu te implementeren):
+
+    """Main entry point."""
+
+    try:                show_about()
+
+        # Controleer vragen
+
+        from quiz import Quiz            elif choice == "4":        print(f"  {i}. {level}")#    - Op de LMDE-machine zal ik in ~/.bash_profile iets doen als:
+
+        quiz = Quiz()
+
+        if not quiz.questions:                break
+
+            print("ERROR: Geen vragen geladen!")
+
+            print(f"Controleer: vragen.csv")            else:    #         if [ "$(tty)" = "/dev/tty1" ]; then
+
+            sys.exit(1)
+
+                        ui.print_warning("Ongeldige keuze!")
+
+        # Start menu
+
+        show_main_menu()        except KeyboardInterrupt:    print("\n  0. Teruggaan")#             python3 ~/surprise/main.py || true
+
+    except KeyboardInterrupt:
+
+        print("\n\nGame afgebroken.")            break
+
+        sys.exit(0)
+
+    except Exception as e:    #         fi
+
+        print(f"\nFATALE FOUT: {e}")
+
+        import traceback
+
+        traceback.print_exc()
+
+        sys.exit(1)def toggle_tts():    try:#      zodat de game automatisch start na autologin.
+
+
+
+    """Toggle TTS aan/uit."""
+
+if __name__ == "__main__":
+
+    main()    ui.clear_screen()        choice = input("\nKeuze: ").strip()#    - Houd hier rekening mee: de code moet zich “netjes” gedragen in een pure TTY.
+
 
     
 
