@@ -74,7 +74,7 @@ def show_main_menu():import ui
 
             "Instellingen",
 
-            "Test geluid/stem",)
+            "Test geluid/stem",
 
             "Afsluiten",
 
@@ -142,7 +142,7 @@ def show_main_menu():import ui
 
 
 
-            "Test geluid/stem",)# - ASCII-art (banners, kaders, simpele “animaties”)
+            "Test geluid/stem", # - ASCII-art (banners, kaders, simpele “animaties”)
 
 def quiz_menu():
 
@@ -270,7 +270,7 @@ def settings_menu():        except KeyboardInterrupt:        options = [# - In d
 
         ui.print_menu("INSTELLINGEN", options)
 
-            ui.print_title("QUIZ")            "Test geluid/stem",# --------------------------------
+            ui.print_title("QUIZ")
 
         try:
 
