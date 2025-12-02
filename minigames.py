@@ -1,6 +1,8 @@
+
 """
 minigames.py - Minigames: Roulette, Opdrachten, Soundboard
 """
+
 
 import random
 import ui
@@ -203,25 +205,24 @@ def play_soundboard():
     ui.clear_screen()
 
 
+
 def show_minigames_menu():
-    """Toon minigames-menu."""
+    """
+    Toon minigames-menu.
+    """
     while True:
         ui.clear_screen()
         ui.print_banner()
         print()
-        
         options = [
             "🎰 Roulette - Willekeurige vragen!",
             "📋 Sint's Opdrachten - Grappige taken!",
             "🔊 Soundboard - Grappige boodschappen!",
             "Teruggaan naar hoofdmenu",
         ]
-        
         ui.print_menu("MINIGAMES", options)
-        
         try:
             choice = input("Jouw keuze (1-4): ").strip()
-            
             if choice == "1":
                 play_roulette()
             elif choice == "2":

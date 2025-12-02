@@ -1,6 +1,8 @@
+
 """
 maintenance.py - Vraagbeheer (CRUD) met Ctrl+M hotkey
 """
+
 
 import csv
 import os
@@ -10,15 +12,21 @@ from config import QUESTIONS_CSV, DIFFICULTY_LEVELS
 
 
 class QuestionManager:
-    """Beheer vragen in CSV."""
+    """
+    Beheer vragen in CSV.
+    """
     
     def __init__(self):
-        """Initialiseer question manager."""
+        """
+        Initialiseer question manager.
+        """
         self.questions = []
         self.load_questions()
     
     def load_questions(self):
-        """Laad vragen uit CSV."""
+        """
+        Laad vragen uit CSV.
+        """
         try:
             with open(QUESTIONS_CSV, 'r', encoding='utf-8') as f:
                 reader = csv.DictReader(f)
@@ -27,7 +35,9 @@ class QuestionManager:
             self.questions = []
     
     def save_questions(self):
-        """Sla vragen op naar CSV."""
+        """
+        Sla vragen op naar CSV.
+        """
         try:
             fieldnames = [
                 'vraagtekst', 'antwoord_A', 'antwoord_B', 'antwoord_C', 'antwoord_D',
@@ -46,7 +56,9 @@ class QuestionManager:
             return False
     
     def add_question(self):
-        """Voeg interactief een nieuwe vraag toe."""
+        """
+        Voeg interactief een nieuwe vraag toe.
+        """
         ui.clear_screen()
         ui.print_title("➕ NIEUWE VRAAG TOEVOEGEN")
         
@@ -139,7 +151,9 @@ class QuestionManager:
         return False
     
     def list_questions(self):
-        """Toon alle vragen."""
+        """
+        Toon alle vragen.
+        """
         ui.clear_screen()
         ui.print_title(f"📋 ALLE VRAGEN ({len(self.questions)} totaal)")
         
@@ -168,7 +182,9 @@ class QuestionManager:
         input("Druk Enter om terug te gaan...")
     
     def delete_question(self):
-        """Verwijder een vraag."""
+        """
+        Verwijder een vraag.
+        """
         ui.clear_screen()
         ui.print_title("🗑️  VRAAG VERWIJDEREN")
         
@@ -220,7 +236,9 @@ class QuestionManager:
             return False
     
     def edit_question(self):
-        """Wijzig een bestaande vraag."""
+        """
+        Wijzig een bestaande vraag.
+        """
         ui.clear_screen()
         ui.print_title("✏️  VRAAG WIJZIGEN")
         
@@ -325,7 +343,9 @@ class QuestionManager:
         return False
     
     def _show_question_preview(self, question):
-        """Toon preview van vraag."""
+        """
+        Toon preview van vraag.
+        """
         vraagtekst = question.get('vraagtekst', '').strip('"')
         q_type = question.get('type', '').strip()
         difficulty = question.get('moeilijkheid', '').strip()
@@ -346,14 +366,15 @@ class QuestionManager:
             print(f"     [{'✓' if correct == 'B' else ' '}] B. Onwaar")
 
 
+
 def show_maintenance_menu():
-    """Toon maintenance menu."""
+    """
+    Toon maintenance menu.
+    """
     manager = QuestionManager()
-    
     while True:
         ui.clear_screen()
         ui.print_title("🔧 ONDERHOUDSMENU - VRAAGBEHEER")
-        
         options = [
             "Nieuwe vraag toevoegen",
             "Alle vragen tonen",
@@ -361,12 +382,9 @@ def show_maintenance_menu():
             "Vraag verwijderen",
             "Teruggaan naar hoofdmenu",
         ]
-        
         ui.print_menu("ONDERHOUD", options)
-        
         try:
             choice = input("Keuze (1-5): ").strip()
-            
             if choice == "1":
                 manager.add_question()
             elif choice == "2":
