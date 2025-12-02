@@ -1,5 +1,3 @@
-tts.py - Text-to-Speech abstractie (espeak-ng)
-Graceful degradatie op Windows (print alleen)
 
 """
 tts.py - Text-to-Speech abstractie (espeak-ng)
