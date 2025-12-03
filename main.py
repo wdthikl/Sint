@@ -26,12 +26,12 @@ def show_main_menu():
             "Instellingen",
             "Test geluid/stem",
             "Afsluiten",
+            "Onderhoudsmenu (vragen beheren)",  # Toegevoegd als optie 7
         ]
         ui.print_menu("HOOFDMENU", options)
-        print("\n💡 Tip: Druk Ctrl+M voor onderhoudsmenu (vragen beheren)")
         print()
         try:
-            choice = input("Jouw keuze (1-6): ").strip()
+            choice = input("Jouw keuze (1-7): ").strip()
             if choice == "1":
                 quiz_menu()
             elif choice == "2":
@@ -45,8 +45,10 @@ def show_main_menu():
             elif choice == "6":
                 say_goodbye()
                 break
+            elif choice == "7":
+                show_maintenance_menu()
             else:
-                ui.print_warning("Ongeldige keuze! Kies 1-6.")
+                ui.print_warning("Ongeldige keuze! Kies 1-7.")
         except KeyboardInterrupt:
             print("\n")
             response = input("Druk Ctrl+M voor onderhoudsmenu, of Ctrl+C opnieuw om af te sluiten: ").strip()
